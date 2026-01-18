@@ -1,13 +1,14 @@
 # AI App Developer
 
 ## Overview
-An agentic AI application built using LangChain and LangGraph that coordinates multiple LLM-powered agents through a graph-based workflow to perform complex tasks autonomously.
+An agentic AI application built using Python, LangChain and LangGraph that coordinates multiple LLM-powered agents through a graph-based workflow to perform complex tasks autonomously.
 
 ## Features
 - Multi-agent orchestration using LangGraph
 - Graph-based control flow for agent execution
 - Tool calling and reasoning using LangChain
 - Modular and extensible agent architecture
+- Generates HTML, CSS, JavaScript, and documentation
 
 ## Tech Stack
 - Python
@@ -20,3 +21,4 @@ An agentic AI application built using LangChain and LangGraph that coordinates m
 pyproject.toml
 uv sync
 python main.py
+
