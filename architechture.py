@@ -66,18 +66,18 @@ def coder_agent(state: AgentState) -> dict:
 
     steps = coder_state.task_plan.implementation_steps
     if coder_state.current_step_idx >= len(steps):
-        print("\n✅ All tasks completed!")
+        print("\n All tasks completed!")
         return {"coder_state": coder_state, "status": "DONE"}
 
     current_task = steps[coder_state.current_step_idx]
-    print(f"\n🔨 Working on: {current_task.filepath}")
-    print(f"📝 Task: {current_task.task_description[:100]}...")
+    print(f"\n Working on: {current_task.filepath}")
+    print(f" Task: {current_task.task_description[:100]}...")
     
     try:
         existing_content = read_file.invoke({"filepath": current_task.filepath})
     except Exception as e:
         existing_content = f"File not found or error: {e}"
-        print(f"⚠️  File doesn't exist yet: {current_task.filepath}")
+        print(f"  File doesn't exist yet: {current_task.filepath}")
 
     system_prompt = coder_system_prompt()
     user_prompt = (
@@ -141,7 +141,7 @@ def coder_agent(state: AgentState) -> dict:
         config={"recursion_limit": 50}
     )
     
-    print(f"✅ Completed: {current_task.filepath}")
+    print(f" Completed: {current_task.filepath}")
     print(f"   Messages exchanged: {len(react_result.get('messages', []))}")
 
     coder_state.current_step_idx += 1
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     user_input = input("Enter your project prompt: ")
     
     print("\n" + "="*50)
-    print("🚀 Starting Multi-Agent System")
+    print(" Starting Multi-Agent System")
     print("="*50)
     
     result = agent.invoke(
@@ -205,20 +205,21 @@ if __name__ == "__main__":
     )
     
     print("\n" + "="*50)
-    print("✅ Final State")
+    print("Final State")
     print("="*50)
     print(f"Status: {result.get('status')}")
     
     if result.get('task_plan'):
-        print(f"\n📦 Project: {result['task_plan'].plan.name}")
-        print(f"📝 Description: {result['task_plan'].plan.description}")
-        print(f"\n📁 Files Created:")
+        print(f"\n Project: {result['task_plan'].plan.name}")
+        print(f" Description: {result['task_plan'].plan.description}")
+        print(f"\n Files Created:")
         for step in result['task_plan'].implementation_steps:
             print(f"   • {step.filepath}")
     
     # List actual files created
     import os
-    print(f"\n💾 Actual files in directory:")
+    print(f"\n Actual files in directory:")
     for file in os.listdir('.'):
         if os.path.isfile(file) and not file.startswith('.'):
+
             print(f"   • {file}")
